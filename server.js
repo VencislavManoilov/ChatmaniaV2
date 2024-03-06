@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const path = require("path");
+const fs = require("fs");
 const PORT = 3000;
 
 app.use(session({
@@ -13,21 +15,15 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Dummy database of users
-const users = [
-    { username: 'user1', password: 'password1' },
-    { username: 'user2', password: 'password2' }
-];
+let users = JSON.parse(fs.readFileSync('users.json', 'utf8'));
 
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-        req.session.user = user;
-        res.send('Login successful');
-    } else {
-        res.status(401).send('Invalid username or password');
-    }
+app.use((req, res, next) => {
+    req.users = users;
+    next();
 });
+
+const auth = require("./routes/auth");
+app.use("/auth", auth);
 
 app.get("/test", (req, res) => {
     res.status(200).send("It works");
