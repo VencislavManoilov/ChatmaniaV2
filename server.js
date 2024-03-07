@@ -16,6 +16,7 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 
 let users = JSON.parse(fs.readFileSync('users.json', 'utf8'));
+let chats = JSON.parse(fs.readFileSync('chats.json', 'utf8'));
 
 app.use((req, res, next) => {
     req.users = users;
@@ -50,8 +51,16 @@ app.post("/newchat", (req, res) => {
 
             users[index1].chats.push(name);
             users[index2].chats.push(name);
+            chats.push(name);
 
             fs.writeFileSync(path.join(__dirname, "users.json"), JSON.stringify(users), (err) => {
+                if(err) {
+                    console.error(err);
+                    return res.status(500).json({ error: "Error saving data" });
+                }
+            })
+
+            fs.writeFileSync(path.join(__dirname, "chats.json"), JSON.stringify(chats), (err) => {
                 if(err) {
                     console.error(err);
                     return res.status(500).json({ error: "Error saving data" });
@@ -71,13 +80,44 @@ app.post("/newchat", (req, res) => {
 app.get("/chat", (req, res) => {
     const { name } = req.body;
     
-    const chat = JSON.parse(fs.readFileSync(path.join(__dirname, "chats", name + ".json"), "utf8", (err) => {
-        if(err) {
-            return res.status(400).send({ error: "Not such chat" });
-        }
-    }))
+    let chat = ""
+    if(name) {
+        chat = JSON.parse(fs.readFileSync(path.join(__dirname, "chats", name + ".json"), "utf8", (err, data) => {
+            if(err) {
+                return res.status(400).json({ error: "No such chat" });
+            }
+        }))
+    } else {
+        return res.status(400).json({ error: "No such chat" });
+    }
 
     res.status(200).json(chat);
+})
+
+app.post("/send", (req, res) => {
+    const { chat, who, text } = req.body;
+
+    // This needs to be optimized
+    if(chats.find(c => c === chat)) {
+        let chatJson = JSON.parse(fs.readFileSync(path.join(__dirname, "chats", chat + ".json"), "utf8"));
+
+        if(chatJson.users.find(u => u === who)) {
+            chatJson.messages.push({ who: who, text: text, date: new Date() });
+
+            fs.writeFileSync(path.join(__dirname, "chats", chat + ".json"), JSON.stringify(chatJson), (err) => {
+                if(err) {
+                    console.log(err);
+                    return res.status(400).json({ error: "Error saving data" });
+                }
+            })
+
+            return res.status(200).json(chatJson);
+        } else {
+            return res.status(400).json({ error: "Wrong username" });
+        }
+    } else {
+        return res.status(400).json({ error: "No such chat" });
+    }
 })
 
 app.get("/test", (req, res) => {
