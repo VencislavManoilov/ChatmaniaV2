@@ -45,7 +45,7 @@ router.post("/signin", (req, res) => {
 
     saveUsers(users);
 
-    res.status(200).json({ success: "I am genius!!!" });
+    res.status(200).json({ success: "Profile created successfully!" });
 })
 
 router.delete("/delete", (req, res) => {

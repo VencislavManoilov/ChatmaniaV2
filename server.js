@@ -68,6 +68,18 @@ app.post("/newchat", (req, res) => {
     }
 })
 
+app.get("/chat", (req, res) => {
+    const { name } = req.body;
+    
+    const chat = JSON.parse(fs.readFileSync(path.join(__dirname, "chats", name + ".json"), "utf8", (err) => {
+        if(err) {
+            return res.status(400).send({ error: "Not such chat" });
+        }
+    }))
+
+    res.status(200).json(chat);
+})
+
 app.get("/test", (req, res) => {
     res.status(200).send("It works");
 })
