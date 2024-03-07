@@ -10,7 +10,7 @@ router.post("/login", (req, res) => {
     const { username, password } = req.body;
     const users = req.users;
     const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
+    if(user) {
         req.session.user = user;
         res.status(200).json({ success: "Login successful" });
     } else {
@@ -40,7 +40,7 @@ router.post("/signin", (req, res) => {
         return res.status(400).json({ error: "Password must contain at least 8 characters, including at least one number, one uppercase letter, one lowercase letter, and one special character." });
     }
 
-    const newUser = { username: username, password: password, email: email };
+    const newUser = { username: username, password: password, email: email, chats: [] };
     users.push(newUser);
 
     saveUsers(users);
