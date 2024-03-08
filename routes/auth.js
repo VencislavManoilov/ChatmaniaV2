@@ -4,6 +4,7 @@ const session = require("express-session");
 const emailVal = require("email-validator");
 const path = require("path");
 const fs = require("fs");
+const { v4: uuidv4 } = require('uuid');
 const { error } = require("console");
 
 router.post("/login", (req, res) => {
@@ -12,11 +13,35 @@ router.post("/login", (req, res) => {
     const user = users.find(u => u.username === username && u.password === password);
     if(user) {
         req.session.user = user;
-        res.status(200).json({ success: "Login successful" });
+
+        const session = uuidv4(), sessions = req.theSessions;
+        sessions.push({ username: username, session: session });
+        
+        fs.writeFileSync(path.join(__dirname, "../sessions"), JSON.stringify(sessions), (err) => {
+            if(err) {
+                console.log(err);
+            }
+        });
+
+        res.status(200).json({ session: session });
     } else {
         res.status(401).json({ error: "Invalid username or password" });
     }
 });
+
+router.post("/session", (req, res) => {
+    const { session } = req.body;
+    const users = req.users;
+    const sessions = req.theSessions;
+    const userUsername = sessions.find(s => s.session === session);
+
+    if(userUsername) {
+        req.session.user = users.find(u => u.username === userUsername.username);
+        res.status(200).json({ success: "Success!" });
+    } else {
+        res.status(400).json({ error: "An error occurred"});
+    }
+})
 
 router.get("/logout", (req, res) => {
     req.session.destroy();

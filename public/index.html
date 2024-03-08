@@ -4,25 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" type="text/css" href="/css/main">
+    <link rel="stylesheet" type="text/css" href="./main.css">
 
     <title>Home</title>
 </head>
 
 <body>
-    <div id="navbar"></div>
+    <a href="./signin.html">Signin</a>
+    <a href="./login.html">Login</a>
 </body>
 
-<script>
-    fetch('/navbar')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-    })
-    .catch(error => {
-        // Handle errors
-        console.error('Error fetching data:', error);
-    });
-</script>
+<script src="./cookies.js"></script>
 
 </html>
