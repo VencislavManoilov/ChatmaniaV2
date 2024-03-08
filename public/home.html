@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="./main.css">
+
+    <title>Home</title>
+</head>
+
+<body onload="start()">
+    <p id="home"></p>
+</body>
+
+<script src="./cookies.js"></script>
+
+<script>
+    let xhr = new XMLHttpRequest();
+
+    function start() {
+        xhr.open("GET", "/testprofile");
+        xhr.send();
+        xhr.onload = () => {
+            document.getElementById("home").innerHTML = xhr.response;
+        }
+    }
+</script>
+
+</html>

@@ -14,16 +14,20 @@ router.post("/login", (req, res) => {
     if(user) {
         req.session.user = user;
 
-        const session = uuidv4(), sessions = req.theSessions;
-        sessions.push({ username: username, session: session });
-        
-        fs.writeFileSync(path.join(__dirname, "../sessions"), JSON.stringify(sessions), (err) => {
-            if(err) {
-                console.log(err);
-            }
-        });
+        // Sessions are for next time
 
-        res.status(200).json({ session: session });
+        // const session = uuidv4(), sessions = req.theSessions;
+        // sessions.push({ username: username, session: session });
+        
+        // fs.writeFileSync(path.join(__dirname, "../sessions"), JSON.stringify(sessions), (err) => {
+        //     if(err) {
+        //         console.log(err);
+        //     }
+        // });
+
+        // res.status(200).json({ session: session });
+
+        res.status(200).json({ success: "Login successfull" });
     } else {
         res.status(401).json({ error: "Invalid username or password" });
     }

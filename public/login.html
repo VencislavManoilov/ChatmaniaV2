@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="./main.css">
+
+    <title>Login</title>
+</head>
+
+<body>
+    <p>Login</p>
+
+    <form>
+        <label for="username">Enter username:</label>
+        <input id="username" type="text" placeholder="Please enter a username!">
+        <br />
+        <br />
+        <label for="password">Enter password:</label>
+        <input id="password" type="password" placeholder="Please enter a password!">
+    </form>
+    <p id="error" style="color: red;"></p>
+    
+    <button onclick="login()">Login</button>
+
+    <br />
+    <br />
+    <a href="./index.html">Home</a>
+</body>
+
+<script src="./cookies.js"></script>
+
+<script>
+    function login() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        
+        fetch("/auth/login", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', },
+            body: new URLSearchParams({
+                username: username,
+                password: password
+            })
+        })
+        .then((resp) => resp.json())
+        .then(function(response) {
+            if(response.error) {
+                document.getElementById("error").innerHTML = response.error;
+            } else if(response.success) {
+                document.location.href = "/home";
+            }
+            return response;
+        })
+    }
+</script>
+
+</html>
