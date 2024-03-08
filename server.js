@@ -7,6 +7,8 @@ const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
 const PORT = 3000;
 
+app.use(express.static("public"));
+
 app.use(session({
     secret: 'secret-key',
     resave: false,
@@ -29,6 +31,18 @@ app.use("/auth", auth);
 
 const chat = require("./chat.js");
 app.use("/chat", chat);
+
+app.get("/", (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, "public", "index.html"));
+})
+
+app.get("/navbar", (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, "public", "navbar.html"));
+})
+
+app.get("/css/main", (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, "public", "main.css"));
+})
 
 app.get("/test", (req, res) => {
     res.status(200).send("It works");
