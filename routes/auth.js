@@ -51,6 +51,10 @@ router.get("/logout", (req, res) => {
 router.post("/signin", (req, res) => {
     const { username, password, email } = req.body;
     let users = req.users;
+
+    console.log(username);
+    console.log(password);
+    console.log(email);
     
     if(users.find(u => u.username === username)) {
         return res.status(400).json({ error: "Username is taken!" });

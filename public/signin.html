@@ -13,17 +13,19 @@
     <p>Signin</p>
 
     <form>
-        <p>Enter username:</p>
-        <input type="text" placeholder="Please enter a username!">
-
-        <p>Enter email:</p>
-        <input type="email" placeholder="Please enter a email!">
-
-        <p>Enter passwrod:</p>
-        <input type="password" placeholder="Please enter a password!">
+        <label for="username">Enter username:</label>
+        <input id="username" type="text" placeholder="Please enter a username!">
+        <br />
+        <br />
+        <label for="username">Enter email:</label>
+        <input id="email" type="email" placeholder="Please enter a email!">
+        <br />
+        <br />
+        <label for="username">Enter password:</label>
+        <input id="password" type="password" placeholder="Please enter a password!">
     </form>
+    <p id="error" style="color: red;"></p>
     
-    <br />
     <button onclick="signin()">Signin</button>
 
     <br />
@@ -35,7 +37,28 @@
 
 <script>
     function signin() {
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
+        fetch("/auth/signin", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', },
+            body: new URLSearchParams({
+                username: username,
+                email: email,
+                password: password
+            })
+        })
+        .then((resp) => resp.json())
+        .then(function(response) {
+            if(response.error) {
+                document.getElementById("error").innerHTML = response.error;
+            } else if(response.success) {
+                document.location.href = "./login.html";
+            }
+            return response;
+        })
     }
 </script>
 

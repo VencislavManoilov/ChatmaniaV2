@@ -1,0 +1,9 @@
+body, html {
+    background-color: rgb(16, 18, 24);
+    color: rgb(186, 206, 228);
+    font-family: Arial;
+}
+
+button {
+    cursor: pointer;
+}
