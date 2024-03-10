@@ -50,7 +50,7 @@ app.get("/testprofile", (req, res) => {
     if(user) {
         res.status(200).send(`Welcome ${user.username} to your profile!`);
     } else {
-        res.status(400).send("What are you doing?!");
+        res.status(400).sendFile(path.join(__dirname, "public", "index.html"));
     }
 })
 

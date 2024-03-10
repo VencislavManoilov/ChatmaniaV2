@@ -48,8 +48,9 @@
         .then(function(response) {
             if(response.error) {
                 document.getElementById("error").innerHTML = response.error;
-            } else if(response.success) {
-                document.location.href = "/home";
+            } else if(response.session) {
+                setCookie("session", response.session, 1);
+                document.location.href = "./home.html";
             }
             return response;
         })
