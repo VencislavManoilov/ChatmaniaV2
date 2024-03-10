@@ -35,8 +35,8 @@ router.post("/new", (req, res) => {
                 }
             });
 
-            users[index1].chats.push(chat);
-            users[index2].chats.push(chat);
+            users[index1].chats.push({name: name, chat: chat});
+            users[index2].chats.push({name: name, chat: chat});
             chats.push(chat);
 
             fs.writeFileSync(path.join(__dirname, "users.json"), JSON.stringify(users), (err) => {

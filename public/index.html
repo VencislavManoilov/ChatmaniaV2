@@ -20,7 +20,6 @@
 <script>
     function checkSession() {
         const session = getCookie("session");
-        console.log(session);
         if(session != "") {
             fetch("/auth/session", {
                 method: 'POST',
@@ -34,7 +33,7 @@
                 if(response.error) {
                     document.getElementById("error").innerHTML = response.error;
                 } else if(response.success) {
-                    document.location.href = "./home.html";
+                    document.location.href = "/home";
                 }
                 return response;
             })

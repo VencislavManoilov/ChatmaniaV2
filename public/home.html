@@ -11,19 +11,46 @@
 
 <body onload="start()">
     <p id="home"></p>
+
+    <button onclick="newchat()">New Chat</button>
+
+    <br />
+    <br />
+    <p>Chats:</p>
+    <div id="chats"></div>
 </body>
 
 <script src="./cookies.js"></script>
 
 <script>
     let xhr = new XMLHttpRequest();
+    let user = {};
 
     function start() {
         xhr.open("GET", "/testprofile");
         xhr.send();
         xhr.onload = () => {
             document.getElementById("home").innerHTML = xhr.response;
+
+            xhr.open("GET", "/user");
+            xhr.send();
+            xhr.onload = () => {
+                if(xhr.status === 404) {
+                    document.location.href = "./login.html";
+                } else {
+                    user = JSON.parse(xhr.response);
+                    let chats = document.getElementById("chats");
+
+                    for(let i = 0; i < user.chats.length; i++) {
+                        chats.innerHTML += "<a href='./404.html'>" + user.chats[i].name + "<a/>";
+                    }
+                }
+            }
         }
+    }
+
+    function newchat() {
+        document.location.href = "./createchat.html";
     }
 </script>
 
