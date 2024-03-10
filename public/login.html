@@ -50,7 +50,7 @@
                 document.getElementById("error").innerHTML = response.error;
             } else if(response.session) {
                 setCookie("session", response.session, 1);
-                document.location.href = "./home.html";
+                document.location.href = "/";
             }
             return response;
         })

@@ -42,7 +42,7 @@
                     let chats = document.getElementById("chats");
 
                     for(let i = 0; i < user.chats.length; i++) {
-                        chats.innerHTML += "<a href='./404.html'>" + user.chats[i].name + "<a/>";
+                        chats.innerHTML += "<a href='/chat/open?chat=" + user.chats[i].chat + "'>" + user.chats[i].name + "<a/><br />";
                     }
                 }
             }

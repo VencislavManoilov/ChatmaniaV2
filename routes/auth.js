@@ -17,7 +17,7 @@ router.post("/login", (req, res) => {
         const session = uuidv4(), sessions = req.theSessions;
         sessions.push({ username: username, session: session });
         
-        fs.writeFileSync(path.join(__dirname, "../sessions"), JSON.stringify(sessions), (err) => {
+        fs.writeFileSync(path.join(__dirname, "../sessions.json"), JSON.stringify(sessions), (err) => {
             if(err) {
                 console.log(err);
             }
@@ -53,10 +53,6 @@ router.get("/logout", (req, res) => {
 router.post("/signin", (req, res) => {
     const { username, password, email } = req.body;
     let users = req.users;
-
-    console.log(username);
-    console.log(password);
-    console.log(email);
     
     if(users.find(u => u.username === username)) {
         return res.status(400).json({ error: "Username is taken!" });

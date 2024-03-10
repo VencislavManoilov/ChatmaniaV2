@@ -64,7 +64,7 @@ router.post("/new", (req, res) => {
 })
 
 router.get("/get", (req, res) => {
-    const { chat } = req.body;
+    const { chat } = req.query;
     
     let chatJson = "";
     if(chat) {
@@ -78,6 +78,10 @@ router.get("/get", (req, res) => {
     }
 
     res.status(200).json(chatJson);
+})
+
+router.get("/open", (req, res) => {
+    res.status(200).sendFile(path.join(__dirname, "public", "chat.html"));
 })
 
 router.post("/send", (req, res) => {

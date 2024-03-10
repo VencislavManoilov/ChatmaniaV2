@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    <title>Home</title>
+</head>
+
+<body onload="checkChat()">
+    <p id="error" style="color: red;"></p>
+    <p id="name">Hello</p>
+
+    <div id="messages"></div>
+</body>
+
+<script src="../cookies.js"></script>
+
+<script>
+    let xhr = new XMLHttpRequest();
+    let user = {};
+
+    function checkChat() {
+        xhr.open("GET", "/user", true);
+        xhr.send();
+        xhr.onload = () => {
+            if(xhr.status === 404) {
+                document.location.href = "../login.html";
+            } else {
+                user = JSON.parse(xhr.response);
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const chat = urlParams.get("chat");
+
+                xhr.open("GET", "/chat/get?chat=" + chat, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.send();
+                xhr.onload = () => {
+                    if(xhr.status === 200) {
+                        useChatInfo(JSON.parse(xhr.response));
+                    } else if(xhr.status === 400) {
+                        document.getElementById("error").innerHTML = JOSN.parse(xhr.response).error;
+                    }
+                }
+            }
+        }
+
+        console.log(user);
+    }
+
+    function useChatInfo(chat) {
+        console.log(chat);
+        let messages = document.getElementById("messages");
+        document.getElementById("name").innerHTML = chat.name;
+
+        for(let i = 0; i < chat.messages.length; i++) {
+            if(chat.messages[i].who === user.username) {
+                messages.innerHTML += "<p>You: " + chat.messages[i].text + "</p>";
+            } else {
+                messages.innerHTML += "<p>" + chat.messages[i].who + ": " + chat.messages[i].text + "</p>";
+            }
+        }
+    }
+</script>
+
+</html>
