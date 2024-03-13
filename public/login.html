@@ -9,7 +9,7 @@
     <title>Login</title>
 </head>
 
-<body>
+<body onload="init()">
     <p>Login</p>
 
     <form>
@@ -32,6 +32,29 @@
 <script src="./cookies.js"></script>
 
 <script>
+    function init() {
+        const session = getCookie("session");
+
+        if(session != "") {
+            fetch("/auth/session", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', },
+                body: new URLSearchParams({
+                    session: session,
+                })
+            })
+            .then((resp) => resp.json())
+            .then(function(response) {
+                if(response.error) {
+                    document.getElementById("error").innerHTML = response.error;
+                } else if(response.success) {
+                    document.location.href = "/home";
+                }
+                return response;
+            })
+        }
+    }
+
     function login() {
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;

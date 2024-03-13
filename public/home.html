@@ -18,6 +18,8 @@
     <br />
     <p>Chats:</p>
     <div id="chats"></div>
+    <br />
+    <button onclick="logout()">Logout</button>
 </body>
 
 <script src="./cookies.js"></script>
@@ -51,6 +53,15 @@
 
     function newchat() {
         document.location.href = "./createchat.html";
+    }
+
+    function logout() {
+        deleteCookie("session");
+        xhr.open("GET", "/auth/logout");
+        xhr.send();
+        xhr.onload = () => {
+            document.location.href = "/";
+        }
     }
 </script>
 

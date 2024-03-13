@@ -9,11 +9,19 @@
     <title>Home</title>
 </head>
 
-<body onload="checkChat()">
+<body onload="init()">
     <p id="error" style="color: red;"></p>
-    <p id="name">Hello</p>
+    <strong id="name">Hello</strong>
+    <br />
+    <a href="/home">home</a>
 
     <div id="messages"></div>
+
+    <form onsubmit="return false;">
+        <input id="message" type="text" placeholder="Send a message">
+    </form>
+    
+    <button onclick="send()">Send</button>
 </body>
 
 <script src="../cookies.js"></script>
@@ -21,39 +29,45 @@
 <script>
     let xhr = new XMLHttpRequest();
     let user = {};
+    const urlParams = new URLSearchParams(window.location.search);
+    const chat = urlParams.get("chat");
+    let started = false;
 
-    function checkChat() {
-        xhr.open("GET", "/user", true);
-        xhr.send();
-        xhr.onload = () => {
-            if(xhr.status === 404) {
-                document.location.href = "../login.html";
-            } else {
-                user = JSON.parse(xhr.response);
-
-                const urlParams = new URLSearchParams(window.location.search);
-                const chat = urlParams.get("chat");
-
-                xhr.open("GET", "/chat/get?chat=" + chat, true);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.send();
-                xhr.onload = () => {
-                    if(xhr.status === 200) {
-                        useChatInfo(JSON.parse(xhr.response));
-                    } else if(xhr.status === 400) {
-                        document.getElementById("error").innerHTML = JOSN.parse(xhr.response).error;
-                    }
+    function init() {
+        if(!started) {
+            xhr.open("GET", "/user", true);
+            xhr.send();
+            xhr.onload = () => {
+                if(xhr.status === 404) {
+                    document.location.href = "../login.html";
+                } else {
+                    user = JSON.parse(xhr.response);
+                    console.log(user);
+    
+                    checkChat();
                 }
             }
-        }
 
-        console.log(user);
+            started = true;
+        }
+    }
+
+    function checkChat() {
+        xhr.open("GET", "/chat/get?chat=" + chat, true);
+        xhr.send();
+        xhr.onload = () => {
+            if(xhr.status === 200) {
+                useChatInfo(JSON.parse(xhr.response));
+            } else if(xhr.status === 400) {
+                document.getElementById("error").innerHTML = JOSN.parse(xhr.response).error;
+            }
+        }
     }
 
     function useChatInfo(chat) {
-        console.log(chat);
         let messages = document.getElementById("messages");
         document.getElementById("name").innerHTML = chat.name;
+        messages.innerHTML = "";
 
         for(let i = 0; i < chat.messages.length; i++) {
             if(chat.messages[i].who === user.username) {
@@ -63,6 +77,34 @@
             }
         }
     }
+
+    function send() {
+        const message = document.getElementById("message").value;
+
+        fetch("/chat/send", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', },
+            body: new URLSearchParams({
+                chat: chat,
+                who: user.username,
+                text: message
+            })
+        })
+        .then((resp) => resp.json())
+        .then(function(response) {
+            if(response.error) {
+                document.getElementById("error").innerHTML = response.error;
+            } else if(response) {
+                useChatInfo(response);
+            }
+
+            document.getElementById("message").value = "";
+
+            return response;
+        })
+    }
+
+    setInterval(checkChat, 1000);
 </script>
 
 </html>
