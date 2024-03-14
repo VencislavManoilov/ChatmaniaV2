@@ -1,9 +1,34 @@
-body, html {
-    background-color: rgb(16, 18, 24);
-    color: rgb(186, 206, 228);
-    font-family: Arial;
+body {
+    background-color: #13161b;
+    color: #acdeff;
+    font-family: 'Poppins', sans-serif;
+	line-height: 1.5;
 }
 
 button {
     cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: #feffac;
+    font-weight: 700;
+    position: relative; 
+}
+
+a::before {
+    content: '';
+    background-color: hsla(196, 61%, 27%, 0.75);
+    position: absolute;
+    left: 0;
+    bottom: 3px;
+    width: 100%;
+    height: 8px;
+    z-index: -1;
+    transition: all .3s ease-in-out;
+}
+
+a:hover::before {
+    bottom: 0;
+    height: 100%;
 }

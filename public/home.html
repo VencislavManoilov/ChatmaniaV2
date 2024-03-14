@@ -5,21 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="./main.css">
+    <link rel="stylesheet" type="text/css" href="./css/home.css">
 
     <title>Home</title>
 </head>
 
 <body onload="start()">
-    <p id="home"></p>
-
-    <button onclick="newchat()">New Chat</button>
-
-    <br />
-    <br />
-    <p>Chats:</p>
-    <div id="chats"></div>
-    <br />
-    <button onclick="logout()">Logout</button>
+    <div id="page">
+        <p id="home"></p>
+    
+        <div id="actions">
+            <button onclick="newchat()">New Chat</button>
+            <button id="logout" onclick="logout()"><i class="gg-log-out"></i></button>
+        </div>
+        
+        <p>Chats:</p>
+        <div id="chats"></div>
+        
+    </div>
 </body>
 
 <script src="./cookies.js"></script>
@@ -29,7 +32,7 @@
     let user = {};
 
     function start() {
-        xhr.open("GET", "/testprofile");
+        xhr.open("GET", "/welcome");
         xhr.send();
         xhr.onload = () => {
             document.getElementById("home").innerHTML = xhr.response;

@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="./main.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
 
     <title>Home</title>
 </head>
 
 <body onload="checkSession()">
     <p id="error"></p>
-    <a href="./signin.html">Signin</a>
-    <a href="./login.html">Login</a>
+    <div id="auth">
+        <a href="./signin.html">Signin</a>
+        <div id="line"></div>
+        <a href="./login.html">Login</a>
+    </div>
 </body>
 
 <script src="./cookies.js"></script>

@@ -57,10 +57,10 @@ app.get("/test", (req, res) => {
     res.status(200).send("It works");
 })
 
-app.get("/testprofile", (req, res) => {
+app.get("/welcome", (req, res) => {
     const user = req.session.user;
     if(user) {
-        res.status(200).send(`Welcome ${user.username} to your profile!`);
+        res.status(200).send(`Welcome <span>${user.username}</span> to your profile!`);
     } else {
         res.status(400).sendFile(path.join(__dirname, "public", "index.html"));
     }

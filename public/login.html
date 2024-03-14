@@ -5,28 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="./main.css">
+    <link rel="stylesheet" type="text/css" href="./css/auth.css">
 
     <title>Login</title>
 </head>
 
 <body onload="init()">
-    <p>Login</p>
-
-    <form>
-        <label for="username">Enter username:</label>
-        <input id="username" type="text" placeholder="Please enter a username!">
-        <br />
-        <br />
-        <label for="password">Enter password:</label>
-        <input id="password" type="password" placeholder="Please enter a password!">
-    </form>
-    <p id="error" style="color: red;"></p>
+    <div id="auth">
+        <p id="header">Login</p>
     
-    <button onclick="login()">Login</button>
+        <form>
+            <label for="username">Enter username:</label>
+            <input id="username" type="text" placeholder="Please enter a username!">
+            <br />
+            <label for="password">Enter password:</label>
+            <input id="password" type="password" placeholder="Please enter a password!">
+        </form>
 
-    <br />
-    <br />
-    <a href="./index.html">Home</a>
+        <p id="error" style="color: red;"></p>
+        
+        <div id="links">
+            <a href="./index.html">Home</a>
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
 </body>
 
 <script src="./cookies.js"></script>
