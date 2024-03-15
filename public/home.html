@@ -14,12 +14,13 @@
     <div id="page">
         <p id="home"></p>
     
+        <!-- <label for="actions">Actions:</label> -->
         <div id="actions">
-            <button onclick="newchat()">New Chat</button>
-            <button id="logout" onclick="logout()"><i class="gg-log-out"></i></button>
+            <button id="newchat" onclick="newchat()" title="New Chat"><i class="gg-file-add"></i></button>
+            <button id="logout" onclick="logout()" title="Logout"><i class="gg-chevron-left-r"></i></button>
         </div>
         
-        <p>Chats:</p>
+        <label for="chats">Chats:</label>
         <div id="chats"></div>
         
     </div>
@@ -47,7 +48,7 @@
                     let chats = document.getElementById("chats");
 
                     for(let i = 0; i < user.chats.length; i++) {
-                        chats.innerHTML += "<a href='/chat/open?chat=" + user.chats[i].chat + "'>" + user.chats[i].name + "<a/><br />";
+                        chats.innerHTML += "<a href='/chat/open?chat=" + user.chats[i].chat + "'>" + user.chats[i].name + "</a>";
                     }
                 }
             }

@@ -4,6 +4,10 @@
     justify-content: start;
 }
 
+a::before {
+    content: none;
+}
+
 #home {
     color: #feffac;
     font-size: 2em;
@@ -21,50 +25,116 @@ button {
     max-width: 100px;
 }
 
-#logout {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin: 15px;
+#actions {
+    border: 4px solid rgb(53, 69, 122);
+    width: fit-content;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#actions button {
+    margin: 0;
+    padding: 10px 15px;
     background: none;
     border: none;
+}
+
+#newchat {
+    color: rgb(40, 177, 40);
+}
+
+#logout {
     color: red;
 }
 
-.gg-log-out {
+label {
+    margin-top: 15px;
+    /* margin-bottom: 5px; */
+}
+
+#chats {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+#chats a {
+    position: static;
+    transition: none;
+    border-bottom: 2px solid rgb(53, 69, 122);
+    transition: none;
+}
+
+#chats a:first-child {
+    border-top: 2px solid rgb(53, 69, 122);
+}
+
+/* Logout Action */
+.gg-chevron-left-r {
     box-sizing: border-box;
     position: relative;
     display: block;
-    width: 6px;
-    height: 16px;
-    border: 2px solid;
     transform: scale(var(--ggs,1));
-    border-right: 0;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    margin-left: -10px
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    border-radius: 4px
 }
-.gg-log-out::after,
-.gg-log-out::before {
+.gg-chevron-left-r::after {
     content: "";
     display: block;
     box-sizing: border-box;
-    position: absolute
-}
-.gg-log-out::after {
-    border-top: 2px solid;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-bottom: 2px solid;
     border-left: 2px solid;
-    transform: rotate(-45deg);
-    width: 8px;
-    height: 8px;
-    left: 4px;
-    bottom: 2px
+    transform: rotate(45deg);
+    left: 7px;
+    top: 6px
 }
-.gg-log-out::before {
-    border-radius: 3px;
-    width: 10px;
-    height: 2px;
+
+/* New Chat Action */
+.gg-file-add {
+    background:
+        linear-gradient(to bottom,
+            currentColor 5px,transparent 0)
+            no-repeat 2px 9px/6px 2px;
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 14px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-right: 0;
+    border-top: 0;
+    box-shadow: 0 0 0 2px;
+    border-radius: 1px;
+    border-top-right-radius: 4px;
+    overflow: hidden
+}
+.gg-file-add::after,
+.gg-file-add::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    height: 6px
+}
+.gg-file-add::before {
     background: currentColor;
-    left: 5px;
-    bottom: 5px
+    left: 4px;
+    width: 2px;
+    top: 7px
+}
+.gg-file-add::after {
+    width: 6px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    right: -1px;
+    top: -1px
 }

@@ -5,28 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="./main.css">
+    <link rel="stylesheet" type="text/css" href="./css/auth.css">
 
     <title>New Chat</title>
 </head>
 
 <body onload="start()">
-    <p>New Chat</p>
-
-    <form>
-        <label for="name">Enter name for chat:</label>
-        <input id="name" type="text" placeholder="Enter a name!">
-        <br />
-        <br />
-        <label for="friendUsername">Enter your friend's username:</label>
-        <input id="friendUsername" type="text" placeholder="Enter the username!">
-    </form>
-    <p id="error" style="color: red;"></p>
+    <div id="auth">
+        <p id="header">New Chat</p>
     
-    <button onclick="create()">Create</button>
+        <form>
+            <label for="name">Enter name for chat:</label>
+            <input id="name" type="text" placeholder="Enter a name!">
+            <br />
+            <label for="friendUsername">Your friend's username:</label>
+            <input id="friendUsername" type="text" placeholder="Enter the username!">
+        </form>
 
-    <br />
-    <br />
-    <a href="./index.html">Home</a>
+        <p id="error" style="color: red;"></p>
+        
+        <div id="links">
+            <a href="./index.html">Home</a>
+            <button onclick="create()">Create</button>
+        </div>
+    </div>
 </body>
 
 <script src="./cookies.js"></script>
