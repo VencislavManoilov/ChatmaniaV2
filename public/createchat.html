@@ -14,20 +14,20 @@
     <div id="auth">
         <p id="header">New Chat</p>
     
-        <form>
+        <form onsubmit="return false;">
             <label for="name">Enter name for chat:</label>
             <input id="name" type="text" placeholder="Enter a name!">
             <br />
             <label for="friendUsername">Your friend's username:</label>
             <input id="friendUsername" type="text" placeholder="Enter the username!">
+            <div id="links">
+                <a href="./index.html">Home</a>
+                <button onclick="create()">Create</button>
+            </div>
         </form>
 
         <p id="error" style="color: red;"></p>
         
-        <div id="links">
-            <a href="./index.html">Home</a>
-            <button onclick="create()">Create</button>
-        </div>
     </div>
 </body>
 

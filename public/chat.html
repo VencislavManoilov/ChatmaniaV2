@@ -5,23 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../css/chat.css">
 
     <title>Home</title>
 </head>
 
 <body onload="init()">
     <p id="error" style="color: red;"></p>
-    <strong id="name">Hello</strong>
-    <br />
-    <a href="/home">home</a>
+    <p id="name">Hello</p>
+    
+    <button class="uglybutton" onclick="document.location.href = '/home'"><i class="gg-home-alt"></i></button>
 
     <div id="messages"></div>
 
-    <form onsubmit="return false;">
+    <form id="send" onsubmit="return false;">
         <input id="message" type="text" placeholder="Send a message">
+        <button class="icon-send material-icons" onclick="send()"><svg width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+          </svg></button>
     </form>
     
-    <button onclick="send()">Send</button>
 </body>
 
 <script src="../cookies.js"></script>
@@ -42,7 +45,6 @@
                     document.location.href = "../login.html";
                 } else {
                     user = JSON.parse(xhr.response);
-                    console.log(user);
     
                     checkChat();
                 }

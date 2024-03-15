@@ -14,7 +14,7 @@
     
     <div id="auth">
         <p id="header">Signin</p>
-        <form>
+        <form onsubmit="return false;">
             <label for="username">Enter username:</label>
             <input id="username" type="text" placeholder="Please enter a username!">
             <br />
@@ -23,14 +23,14 @@
             <br />
             <label for="username">Enter password:</label>
             <input id="password" type="password" placeholder="Please enter a password!">
+            <div id="links">
+                <a href="./index.html">Home</a>
+                <button onclick="signin()">Signin</button>
+            </div>
         </form>
 
         <p id="error" style="color: red;"></p>
         
-        <div id="links">
-            <a href="./index.html">Home</a>
-            <button onclick="signin()">Signin</button>
-        </div>
     </div>
 </body>
 

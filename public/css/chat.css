@@ -1,0 +1,89 @@
+#name {
+    color: #feffac;
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    margin-top: 0;
+    border-bottom: 4px solid #f8a6f1;
+}
+
+
+#send {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    height: 35px;
+    text-align: center;
+}
+
+#send input {
+    border: 3px solid black;
+    border-radius: 10px 0px 0px 10px;
+    border-right: none;
+    background: rgba(0, 0, 0, 0.493);
+    height: 35px;
+    width: 50%;
+    color: rgb(164, 189, 255);
+    font-size: medium;
+}
+
+#send button {
+    height: 39px;
+    width: 35px;
+    color: rgb(58, 155, 58);
+    background-color: rgba(37, 189, 37, 0.219);
+    border: 3px solid green;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.uglybutton {
+    border: none;
+    background: none;
+}
+
+/* Home Action icon */
+.gg-home-alt {
+    color: rgb(37, 172, 37);
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 18px;
+    height: 14px;
+    border: 2px solid;
+    border-top: 0;
+    border-radius: 2px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin-bottom: -2px
+}
+.gg-home-alt::after,
+.gg-home-alt::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute
+}
+.gg-home-alt::before {
+    border-top: 2px solid;
+    border-left: 2px solid;
+    border-top-left-radius: 4px;
+    transform: rotate(45deg);
+    top: -5px;
+    border-radius: 3px;
+    width: 14px;
+    height: 14px;
+    left: 0
+}
+.gg-home-alt::after {
+    width: 6px;
+    height: 10px;
+    background: currentColor;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    left: 4px;
+    bottom: -2px
+}
