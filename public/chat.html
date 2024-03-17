@@ -20,9 +20,11 @@
 
     <form id="send" onsubmit="return false;">
         <input id="message" type="text" placeholder="Send a message">
-        <button class="icon-send material-icons" onclick="send()"><svg width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
-          </svg></button>
+        <button class="icon-send material-icons" onclick="send()">
+            <svg width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+            </svg>
+        </button>
     </form>
     
 </body>
@@ -71,13 +73,32 @@
         document.getElementById("name").innerHTML = chat.name;
         messages.innerHTML = "";
 
+        let classes = [];
         for(let i = 0; i < chat.messages.length; i++) {
             if(chat.messages[i].who === user.username) {
-                messages.innerHTML += "<p>You: " + chat.messages[i].text + "</p>";
+                let thisClass = "";
+                if(classes[classes.length-1] == "you") {
+                    thisClass = "you you-center";
+                } if(classes[classes.length-1] == "other" || classes.length == 0) {
+                    thisClass = "you you-top";
+                }
+                messages.innerHTML += "<p class='" + thisClass + "'>" + chat.messages[i].text + "</p>";
+                classes.push("you");
             } else {
-                messages.innerHTML += "<p>" + chat.messages[i].who + ": " + chat.messages[i].text + "</p>";
+                let thisClass = "";
+                if(classes[classes.length-1] == "other") {
+                    thisClass = "other other-center";
+                } if(classes[classes.length-1] == "you" || classes.length == 0) {
+                    thisClass = "other other-top";
+                    messages.innerHTML += "<label for='other'>" + chat.messages[i].who + "</label>";
+                }
+
+                messages.innerHTML += "<p class='" + thisClass + "'>" + chat.messages[i].text + "</p>";
+                classes.push("other");
             }
         }
+
+        console.log(classes);
     }
 
     function send() {
@@ -106,7 +127,7 @@
         })
     }
 
-    setInterval(checkChat, 1000);
+    // setInterval(checkChat, 1000);
 </script>
 
 </html>

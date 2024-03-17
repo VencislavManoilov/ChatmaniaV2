@@ -66,6 +66,7 @@ label {
     transition: none;
     border-bottom: 2px solid rgb(53, 69, 122);
     transition: none;
+    padding: 5px;
 }
 
 #chats a:first-child {

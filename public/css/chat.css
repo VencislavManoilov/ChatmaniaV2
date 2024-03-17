@@ -6,9 +6,61 @@
     border-bottom: 4px solid #f8a6f1;
 }
 
+#messages {
+    width: 75%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    margin: 0 auto 80px auto;
+    margin-bottom: 80px;
+}
+
+#messages p {
+    max-width: 45%;
+    word-wrap: break-word;
+    /* border-radius: 10px; */
+    padding: 6px 10px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+#messages label {
+    font-size: small;
+    color: #445561;
+    gap: 0px;
+}
+
+.you {
+    background-color: rgb(53, 61, 116);
+    align-items: flex-end;
+    margin-left: auto;
+}
+
+.other {
+    background-color: rgb(31, 36, 65);
+    align-items: flex-start;
+    margin-right: auto;
+}
+
+.other-top {
+    border-radius: 0px 10px 10px 10px;
+}
+
+.other-center {
+    border-radius: 0px 10px 10px 0px;
+}
+
+.you-top {
+    border-radius: 10px 0px 10px 10px;
+}
+
+.you-center {
+    border-radius: 10px 0px 0px 10px;
+}
 
 #send {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
@@ -16,7 +68,9 @@
     margin-bottom: 25px;
     padding: 0;
     height: 35px;
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 #send input {
@@ -31,17 +85,42 @@
 }
 
 #send button {
-    height: 39px;
+    height: 42px;
     width: 35px;
     color: rgb(58, 155, 58);
     background-color: rgba(37, 189, 37, 0.219);
     border: 3px solid green;
+    border-left: none;
     border-radius: 0px 10px 10px 0px;
 }
 
 .uglybutton {
     border: none;
     background: none;
+}
+
+
+/* The scroll-bar */
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track:hover {
+    background-color: transparent;
 }
 
 /* Home Action icon */
